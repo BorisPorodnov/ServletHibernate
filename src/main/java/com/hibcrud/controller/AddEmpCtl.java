@@ -1,9 +1,7 @@
 package com.hibcrud.controller;
 
 import com.hibcrud.entity.Employee;
-import com.hibcrud.entity.Lot;
 import com.hibcrud.model.EmployeeModel;
-import com.hibcrud.model.LotService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -58,37 +56,8 @@ public class AddEmpCtl extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PrintWriter out = response.getWriter();
-
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String name = request.getParameter("name");
-
-
-        Long id = Long.parseLong(request.getParameter("id"));
-
-        if (id > 0) {
-            Employee updatedEmp = new Employee(id, username, password, name);
-            List<Lot> lotsList = LotService.getLotsList();
-            EmployeeModel.UpdateEmp(updatedEmp);
-            System.out.println("Data is updated");
-        } else {
-            Employee emp = new Employee(
-                    username,
-                    password,
-                    name
-            );
-            long resid = EmployeeModel.SignUp(emp);
-
-            if (resid > 0) {
-                out.print("Employee is added into database");
-            } else {
-                out.print("Someting went wrong");
-            }
-        }
-
-        doGet(request, response);
-
+        List<Employee> employees = EmployeeModel.GetEmployeeList();
+        int size = employees.size();
     }
 
 }
