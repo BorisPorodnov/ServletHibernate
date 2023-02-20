@@ -31,21 +31,18 @@ public class AddEmpCtl extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO Auto-generated method stub
-        //response.getWriter().append("Served at: ").append(request.getContextPath());
-
         long editid = (request.getParameter("editId") == null) ? 0 : Long.parseLong(request.getParameter("editId"));
         long delId = (request.getParameter("delId") == null ? 0 : Long.parseLong(request.getParameter("delId")));
         Employee emp = new Employee();
         if (editid > 0) {
-            emp = EmployeeModel.FindById(editid);
+            emp = EmployeeModel.findBy(editid);
         }
 
         if (delId > 0) {
             EmployeeModel.deleteEmp(delId);
         }
         request.setAttribute("bean", emp);
-        List<Employee> empList = EmployeeModel.GetEmployeeList();
+        List<Employee> empList = EmployeeModel.getAll();
         request.setAttribute("empList", empList);
         request.getRequestDispatcher("/jsp/home.jsp").forward(request, response);
 
@@ -56,7 +53,7 @@ public class AddEmpCtl extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Employee> employees = EmployeeModel.GetEmployeeList();
+        List<Employee> employees = EmployeeModel.getAll();
         int size = employees.size();
     }
 

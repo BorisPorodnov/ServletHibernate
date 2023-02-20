@@ -36,18 +36,6 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(long id, String username, String password, String name) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "Employee [id=" + id + ", username=" + username + ", password=" + password + ", name=" + name + "]";
-    }
-
     public long getId() {
         return id;
     }

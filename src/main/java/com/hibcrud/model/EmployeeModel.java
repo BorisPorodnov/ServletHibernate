@@ -8,25 +8,21 @@ import com.hibcrud.entity.Employee;
 import com.hibcrud.utility.HibDataSource;
 
 public class EmployeeModel {
-    public static Employee FindById(long id) {
+    public static Employee findBy(long id) {
         Session session = HibDataSource.getSession();
         session.beginTransaction();
-        Employee emp = (Employee) session.get(Employee.class, id);
-        return emp;
+        return (Employee) session.get(Employee.class, id);
     }
 
-    public static long SignUp(Employee emp) {
-
+    public static void save(Employee emp) {
         Session session = HibDataSource.getSession();
         session.beginTransaction();
-        Long id = (Long) session.save(emp);
+        session.persist(emp);
         session.getTransaction().commit();
-        return id;
     }
 
 
-    public static void UpdateEmp(Employee emp) {
-
+    public static void update(Employee emp) {
         Session session = HibDataSource.getSession();
         session.beginTransaction();
         session.merge(emp);
@@ -34,8 +30,7 @@ public class EmployeeModel {
 
     }
 
-    public static List<Employee> GetEmployeeList() {
-
+    public static List<Employee> getAll() {
         Session session = HibDataSource.getSession();
         session.beginTransaction();
         List<Employee> list = session.createQuery("from Employee").list();
@@ -52,7 +47,6 @@ public class EmployeeModel {
         Employee emp = (Employee) session.get(Employee.class, id);
         session.delete(emp);
         session.getTransaction().commit();
-
     }
 
 }
